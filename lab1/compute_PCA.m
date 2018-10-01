@@ -35,6 +35,26 @@ pca_model.variance = [];
 %  YOUR CODE GOES HERE! 
 % ----------------------
 
+pca_model.mean = mean(data,1);
+
+% subtracting mean from the data to find out the zero mean MxN data.
+y=[]; x= [];
+x = mean(data,1);
+for i = 1:M
+    y(:, i) = data(:,i) - x(:,i);
+end
+
+% now data is zero mean data.
+data = y;
+% finding the covariance of zero mean data
+C = cov(data);
+[Vec,Val] = eig(C);
+
+
+
+    
+
+
 
 % check that everything is OK
 assert(all(size(pca_model.components) == [M, D]));
