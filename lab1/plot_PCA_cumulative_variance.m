@@ -10,7 +10,8 @@ function plot_PCA_cumulative_variance(pca_struct)
     %  YOUR CODE GOES HERE! 
     % ----------------------
 
-    
+    flipped_variance = fliplr(pca_struct.variance);
+    plot(cumsum(flipped_variance));    
     xlabel('# of PCA components');
     ylabel('Percentage of Explained Variance');
     grid on

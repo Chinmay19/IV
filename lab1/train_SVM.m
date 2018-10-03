@@ -16,9 +16,9 @@
 %
 
 function svm = train_SVM(labels, features, C)
-if nargin < 3;
+if nargin < 3
     C = 2; % NOTE: if no C argument is given, we use C = 2 here by default
-end;
+end
 
 % training set
 %  N x M matrix

@@ -16,10 +16,12 @@ function pca_data = apply_PCA(pca, data)
 % ----------------------
 % write this equation properly.
 % pcd_data = W(traspose)* (data-mean)
+
 [N, M] = size(data);
 y=[]; x= [];
-% shoud overwrite pca.mean???
+
+% shoud I overwrite pca.mean???
 x = mean(data,1);
 y = data - x;
 
-pca_data = (pca.components)'*(y)';
+pca_data = y*(pca.components) ;

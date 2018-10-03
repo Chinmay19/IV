@@ -83,7 +83,7 @@ end
 %    apply_PCA.m
 
 % compute the PCA space
-num_PCA_components = 3;
+num_PCA_components = 10;
 pca_int = compute_PCA(all_train_int, num_PCA_components);
 
 % project the datva onto the computed PCA space
@@ -92,9 +92,9 @@ proj_garb = apply_PCA(pca_int, garb_train_int);
 
 % create 3D plot of data in PCA space
 figure(3); clf;
-plot3(proj_ped(:,1), proj_ped(:,2), proj_ped(:,3), 'g.', 'DisplayName', 'pedestrians');
+plot3(proj_ped(:,1), proj_ped(:,2), proj_ped(:,3), 'go', 'DisplayName', 'pedestrians');
 hold all;
-plot3(proj_garb(:,1), proj_garb(:,2), proj_garb(:,3), 'r.', 'DisplayName', 'background');
+plot3(proj_garb(:,1), proj_garb(:,2), proj_garb(:,3), 'r*', 'DisplayName', 'background');
 xlabel('PCA 1')
 ylabel('PCA 2')
 zlabel('PCA 3')
@@ -111,7 +111,7 @@ legend_by_displayname
 %    backproject_PCA.m
 
 % back-project images from the reduced PCA space
-num_PCA_components = 10; % <-- Try out different numbers here !
+num_PCA_components = 100; % <-- Try out different numbers here !
 
 pca_int = compute_PCA(all_train_int, num_PCA_components);
 ids = [1:6] * 400; % select a few samples in the training data

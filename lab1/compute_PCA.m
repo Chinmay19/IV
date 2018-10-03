@@ -43,6 +43,7 @@ x = mean(data,1);
 y = data - x;
 
 
+
 % now data is zero mean data.
 data = y;
 % finding the covariance of zero mean data
@@ -50,9 +51,7 @@ C = cov(data);
 [vec,val] = eig(C);
 
 W = [];
-% not sure if one column represents an eigen vector or a row.
-% also are they already sorted? and we can just take first 10 rows/cols?
-
+% a column represents one eigen vector.
 % this is first 10 columns: eigen vectors 1-10
 % W(:,1:D) = vec(:,1:D);
 
@@ -70,7 +69,7 @@ lambda = diag(lambda);
 
 % calculatinf variance each component based on the eigen values.
 for i = 1:D
-    pca_model.variance(i) = lambda(i) / sum(lambda);
+    pca_model.variance(i) = lambda(i) / sum(diag(val));
 end
     
 
