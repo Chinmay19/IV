@@ -14,6 +14,6 @@ function features = backproject_PCA(pca, weights)
 % ----------------------
 %  YOUR CODE GOES HERE! 
 % ----------------------
-
-
+% solve this equation.
+features = W* pca_data + mean_vector
 end

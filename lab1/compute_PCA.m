@@ -40,17 +40,39 @@ pca_model.mean = mean(data,1);
 % subtracting mean from the data to find out the zero mean MxN data.
 y=[]; x= [];
 x = mean(data,1);
-for i = 1:M
-    y(:, i) = data(:,i) - x(:,i);
-end
+y = data - x;
+
 
 % now data is zero mean data.
 data = y;
 % finding the covariance of zero mean data
 C = cov(data);
-[Vec,Val] = eig(C);
+[vec,val] = eig(C);
 
+W = [];
+% not sure if one column represents an eigen vector or a row.
+% also are they already sorted? and we can just take first 10 rows/cols?
 
+% this is first 10 columns: eigen vectors 1-10
+% W(:,1:D) = vec(:,1:D);
+
+%this is last ten columns: eigen vectors 1241-1250 
+W = vec(:,M-D+1:M);
+pca_model.components = W;
+ 
+% first 10 columns : eigen values 1-10
+% lambda(:,1:D) = val(:,1:D);
+% lambda = diag(lambda);
+
+%last 10 columns: eigen values 1241-1250
+lambda = val([M-D+1:M],[M-D+1:M]);
+lambda = diag(lambda);
+
+% calculatinf variance each component based on the eigen values.
+for i = 1:D
+    pca_model.variance(i) = lambda(i) / sum(lambda);
+end
+    
 
     
 
