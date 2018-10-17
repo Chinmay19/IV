@@ -33,7 +33,8 @@ for i = 1:size(test_features,1)
     cond_ped = []; % <-- this should p(feature | ped)
     cond_garb = []; % <-- this should p(feature | garb)
     % ----------------------
-    %  YOUR CODE GOES HERE! 
+    cond_ped = pdf(gmm_classifier.gmm_ped, test_features);
+    cond_garb = pdf(gmm_classifier.gmm_garb, test_features);
     % ----------------------
 
     
@@ -44,8 +45,7 @@ for i = 1:size(test_features,1)
     % Use Bayes' rule here to compute decision_vals(i) = P(ped|feature)
     %  from the given cond_ped, cond_garb, prior_ped, prior_garb
     % ----------------------
-    %  YOUR CODE GOES HERE! 
-    % ----------------------
+    decision_vals(i) = prior_ped * cond_ped(i) / ((prior_ped * cond_ped(i))+ (prior_garb * cond_garb(i)));
 
 
 end

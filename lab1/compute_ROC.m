@@ -35,8 +35,31 @@ end
 %    5. compute the TPR and FPR
 %    6. set the [FPR, TPR] as the i-th row in the output matrix.
 
-
+roc = zeros(15,2);
 % ----------------------
-%  YOUR CODE GOES HERE! 
+x = 1;
+for j = -7:0.1:7
+    thresh = j;
+    count_pos = 0;
+    count_neg = 0;
+    count_TP = 0;
+    count_FP = 0;
+
+    for i = 1:size(labels,1)
+        if (labels(i) > 0)
+            count_pos = count_pos + 1;
+        elseif (labels(i) < 0);
+            count_neg = count_neg + 1;
+        end
+        if (labels(i) > 0 && decision_vals(i) > thresh)
+            count_TP = count_TP + 1;
+        elseif(labels(i) < 0 && decision_vals(i) > thresh);
+            count_FP = count_FP + 1;
+        end    
+    end
+    roc(x,1) = count_FP / count_neg;
+    roc(x,2) = count_TP / count_pos;
+    x= x+1;
+end
 % ----------------------
 

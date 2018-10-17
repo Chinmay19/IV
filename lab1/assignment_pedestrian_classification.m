@@ -187,7 +187,7 @@ ylabel('error rate')
 ylim([0 1])
 
 %% Exercise 2.6: Fusion 
-% You will need to complete the code in
+% You will need to complete the code iall_train_hog_pcaall_train_hog_pcaall_train_hog_pcaall_train_hog_pcaall_train_hog_pcan
 %    fuse_decision_values.m
 
 % compute two fused decision value vectors,

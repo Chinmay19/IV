@@ -21,6 +21,7 @@ function [decision_vals] =  evaluate_SVM(svm, test_features)
 
 decision_vals = NaN(N, 1); % dummy values
 
+decision_vals=((svm.w)'*(test_features')+svm.b)';
 % ----------------------
 %  YOUR CODE GOES HERE! 
 % ----------------------

@@ -93,10 +93,14 @@ end
 %   END FUNCTION
 %
 function gmm = fit_GMM_single_class(data, num_components)
+          for trial = 1:20
+            try
+                  gmm = fitgmdist(data, num_components,'Options',statset('MaxIter',500),'RegularizationValue',10);
+                % Fitting succeeded :)
+            catch
+                  warning('Ill-conditioned covariance');
+              % Oops, failed! Print some info to inform the user?
 
-    % ----------------------
-    %  YOUR CODE GOES HERE! 
-    % ----------------------
-        
-    
+            end
+          end   
 end
