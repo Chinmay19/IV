@@ -109,7 +109,7 @@ disp('running svm training ...');
 %  YOUR CODE GOES HERE! 
 % ----------------------
 
-model = fitcsvm(features, labels, 'BoxConstraint',2, 'Standardize', false, 'Verbose', 1, 'IterationLimit', 100000 );
+model = fitcsvm(features, labels, 'BoxConstraint',C, 'Standardize', false, 'Verbose', 1, 'IterationLimit', 100000 );
 
 svm.w = model.Beta;
 svm.b = model.Bias;
@@ -119,6 +119,6 @@ svm.b = model.Bias;
 assert(all(size(svm.w) == [M, 1]));
 assert(all(size(svm.b) == [1, 1]));
 
-
+end
 
 

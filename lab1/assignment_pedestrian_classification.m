@@ -147,7 +147,7 @@ legend_by_displayname;
 grid on;
 disp('done');
 
-%% Exercise 2.4 & 2.5: Overfitting
+%% Exercise 2.4  Overfitting
 % for each C, let's train the SVM on the training data, and
 % then evaluate on the following two dataset:
 %  1. the SAME training data
@@ -160,7 +160,7 @@ Cs = 10 .^ [-3:.5:3];
 
 % for each parameter C, train a classifier on the training set,
 %    and EVALUATE it on both TRAIN and TEST data.
-results = validate_SVM_parameters(Cs, train_labels, all_train_hog, test_labels, all_test_hog);
+results = validate_SVM_parameters(Cs, train_labels, all_train_hog_pca, test_labels, all_test_hog_pca);
 
 errs_train = [results.err_train]; % classification error on training data
 errs_test = [results.err_test]; % classification error on test data
@@ -185,6 +185,49 @@ grid on
 xlabel('regularization C')
 ylabel('error rate')
 ylim([0 1])
+
+
+
+
+%% Exercise  2.5: Overfitting
+% for each K, let's train the SVM on the training data, and
+% then evaluate on the following two dataset:
+%  1. the SAME training data
+%  2. the test data
+% and compare the reported performance.
+
+% try out different values of K in different orders of magnitude,
+%   range from 1 up to 7
+K = [1:1:10];
+
+% for each parameter k, train a classifier on the training set,
+%    and EVALUATE it on both TRAIN and TEST data.
+results = validate_GMM_classifier(K, train_labels, all_train_hog_pca, test_labels, all_test_hog_pca);
+
+errs_train = [results.err_train]; % classification error on training data
+errs_test = [results.err_test]; % classification error on test data
+
+% report best (= lowest) errors for both train and test
+[~, best_train_idx] = min(errs_train);
+[~, best_test_idx] = min(errs_test);
+fprintf('best result on training data : K = %d\t err = %.3f\n', K(best_train_idx), errs_train(best_train_idx));
+fprintf('best result on test data     : K = %d\t err = %.3f\n', K(best_test_idx), errs_test(best_test_idx));
+
+% plot error as a function of K
+figure(2);
+clf;
+hold all
+h = plot(K, errs_train, '.-', 'DisplayName', 'error on train data');
+plot(K(best_train_idx), errs_train(best_train_idx), '.', 'MarkerSize', 30, 'Color', h.Color); % show best result
+h = plot(K, errs_test, '.-', 'DisplayName', 'error on test data');
+plot(K(best_test_idx), errs_test(best_test_idx), '.', 'MarkerSize', 30, 'Color', h.Color); % show best result
+legend_by_displayname
+set(gca, 'XScale', 'log')
+grid on
+xlabel('Num_components: K')
+ylabel('error rate')
+ylim([0 1])
+
 
 %% Exercise 2.6: Fusion 
 % You will need to complete the code iall_train_hog_pcaall_train_hog_pcaall_train_hog_pcaall_train_hog_pcaall_train_hog_pcan

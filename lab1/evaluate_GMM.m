@@ -45,9 +45,10 @@ for i = 1:size(test_features,1)
     % Use Bayes' rule here to compute decision_vals(i) = P(ped|feature)
     %  from the given cond_ped, cond_garb, prior_ped, prior_garb
     % ----------------------
-    decision_vals(i) = prior_ped * cond_ped(i) / ((prior_ped * cond_ped(i))+ (prior_garb * cond_garb(i)));
+    decision_vals(i) = (prior_ped * cond_ped(i)) / ((prior_ped * cond_ped(i))+ (prior_garb * cond_garb(i)));
 
 
+end
 end
 
 

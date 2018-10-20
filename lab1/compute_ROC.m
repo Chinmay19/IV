@@ -48,12 +48,12 @@ for j = -7:0.1:7
     for i = 1:size(labels,1)
         if (labels(i) > 0)
             count_pos = count_pos + 1;
-        elseif (labels(i) < 0);
+        elseif (labels(i) < 0)
             count_neg = count_neg + 1;
         end
         if (labels(i) > 0 && decision_vals(i) > thresh)
             count_TP = count_TP + 1;
-        elseif(labels(i) < 0 && decision_vals(i) > thresh);
+        elseif (labels(i) < 0 && decision_vals(i) > thresh)
             count_FP = count_FP + 1;
         end    
     end

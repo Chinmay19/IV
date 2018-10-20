@@ -2,3 +2,5 @@
 /utils
 /utils_iv
 *~
+*.png
+*.gitignore

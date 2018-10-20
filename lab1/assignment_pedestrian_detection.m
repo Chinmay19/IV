@@ -30,11 +30,38 @@ all_test_hog = [ped_test_hog; garb_test_hog];
 
 %% Exercise 3.1 & 3.2: Train and evaluate a SVM and HOG
 % Use the provided training data in all_train_hog to train a classifier.
-% You can use all_test_hog to evaluate classifiers.
+% You can usee provided training data in all_train_hog to train a classifier.
+% You can use all_test_hog to evaluate classifiers. all_test_hog to evaluate classifiers.
+C1=10^-1.5; %Observed tuned from curve error vs C
+% C2=10^2;
+% ----------------------
+svm_hog = train_SVM(train_labels, all_train_hog, C1);
+% svm_hog_pca = train_SVM(train_labels, all_train_hog_pca, C2);
 
+[dval_hog_svm] = evaluate_SVM(svm_hog, all_test_hog);
+% [dval_hog_svm_pca] = evaluate_SVM(svm_hog_pca, all_test_hog_pca);
+
+disp('HOG features')
+compute_confusion_matrix(test_labels, sign(dval_hog_svm));
+% disp('HOG features PCA')
+% compute_confusion_matrix(test_labels, sign(dval_hog_svm_pca));
 % ----------------------
-%  YOUR CODE GOES HERE! 
-% ----------------------
+%% Train and evaluate GMM and HOG
+num_components = 5;
+
+% gmm_hog = train_GMM(train_labels, all_train_hog, num_components);
+gmm_hog_3 = train_GMM(train_labels, all_train_hog, num_components);
+
+% [dval_hog_gmm] = evaluate_GMM(gmm_hog, all_test_hog);
+[dval_hog_gmm] = evaluate_GMM(gmm_hog_3, all_test_hog);
+
+disp('HOG features')
+compute_confusion_matrix(test_labels, (dval_hog_gmm > .5)*2-1);
+
+% disp('HOG features PCA')
+% compute_confusion_matrix(test_labels, (dval_hog_gmm_pca > .5)*2-1);
+
+
 
 
 %% load video sequence information

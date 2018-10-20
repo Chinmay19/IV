@@ -29,3 +29,4 @@ decision_vals=((svm.w)'*(test_features')+svm.b)';
 
 % check all ok
 assert(all(size(decision_vals) == [N, 1]));
+end

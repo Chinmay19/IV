@@ -8,7 +8,7 @@ function h = plot_ROC(gt_labels, decision_vals, varargin)
     ylabel('True Positive rate');
     
     % pass on return value?
-    if nargout < 1;
+    if nargout < 1
         clear h
     end
 end

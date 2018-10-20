@@ -10,10 +10,17 @@
 %                     classifier with the largest ABSOLUTE (!) value.
 %
 function [dval_fuse_mean, dval_fuse_max] = fuse_decision_values(dval1, dval2)
-
+dval_fuse_mean=[];
+dval_fuse_max=[];
 
 % ----------------------
-%  YOUR CODE GOES HERE! 
+for i = 1:size(dval1,1)
+    dval_fuse_mean(i) = mean([dval1(i), dval2(i)]);
+    if(abs(dval1(i)) > abs(dval2(i)))
+        dval_fuse_max(i) = abs(dval1(i));
+    else dval_fuse_max(i) = abs(dval2(i));
+    end
+end
 % ----------------------
 
 

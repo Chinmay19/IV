@@ -16,7 +16,7 @@
 %                 (i.e. pedestrian class)
 %     - gmm_garb: a Gaussian Mixture distribution for the negative
 %                 (i.e. non-pedestrian, garbage class)
-function gmm_classifier = train_GMM(labels, features, K)
+function gmm_classifier = train_GMM(labels, features, k)
 
 % seperate pedestrian and non-pedestrian data
 ped_features = features(labels == 1,:);
@@ -27,10 +27,10 @@ disp('Fitting GMMs ...');
 
 % fit pedestrian data
 %  NOTE: the fit_GMM_single_class subfunction is defined below
-gmm_ped = fit_GMM_single_class(ped_features, K);
+gmm_ped = fit_GMM_single_class(ped_features, k);
 
 % fit non-pedestrian data
-gmm_garb = fit_GMM_single_class(garb_features, K);
+gmm_garb = fit_GMM_single_class(garb_features, k);
 
 disp('done');
 
@@ -52,7 +52,7 @@ end
 % Look up in the Matlab documentation on how to use the built-in 
 %   methods to fit a Gaussian mixture distribution, 
 %   e.g. "doc gmdistribution".
-%   Find a method to estimate Gaussian mixture parameters with the EM
+%   Find a method  breakto estimate Gaussian mixture parameters with the EM
 %   algorithm. The result if this method should be a GMM object
 %   that you can later use in evaluate_GMM.
 %
@@ -93,14 +93,21 @@ end
 %   END FUNCTION
 %
 function gmm = fit_GMM_single_class(data, num_components)
-          for trial = 1:20
-            try
-                  gmm = fitgmdist(data, num_components,'Options',statset('MaxIter',500),'RegularizationValue',10);
+        try
+            for trial = 1:20
+                try
+                      gmm = fitgmdist(data, num_components,'RegularizationValue',10, 'Options',statset('MaxIter',500));
+                      num_components
+                      break
+                      
                 % Fitting succeeded :)
-            catch
-                  warning('Ill-conditioned covariance');
+                catch
+                      warning('Ill-conditioned covariance');
               % Oops, failed! Print some info to inform the user?
 
+                end
             end
-          end   
+        catch
+            error('Not enough data :( ')
+        end
 end
